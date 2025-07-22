@@ -6,23 +6,53 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Test the priority queue with 4 words, 2 containing the same priority
+    // Expected Result: Good Bye, Hello, Number, Eyes.
+    // Defect(s) Found: No defects found.
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        var hello = "Hello";
+        var goodbye = "Good Bye";
+        var number = "Number";
+        var eyes = "Eyes";
+
+        string[] expectedResult = { goodbye, hello, number, eyes };
+
+        priorityQueue.Enqueue(hello, 2);
+        priorityQueue.Enqueue(goodbye, 2);
+        priorityQueue.Enqueue(number, 1);
+        priorityQueue.Enqueue(eyes, 20);
+
+        for (int i = 0; i < 4; i++)
+        {
+            var value = priorityQueue.Dequeue();
+            Assert.AreEqual(expectedResult[i], value);
+        }
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
+    // Scenario: Create 3 fruits with priorities (2 of them with the same), enqueue and dequeue them
+    // Expected Result: banana, apple, orange
+    // Defect(s) Found: No defects found.
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        PriorityItem banana = new PriorityItem("banana", 20);
+        PriorityItem apple = new PriorityItem("apple", 20);
+        PriorityItem orange = new PriorityItem("orange", 10);
+
+        priorityQueue.Enqueue(apple.Value, apple.Priority);
+        priorityQueue.Enqueue(banana.Value, banana.Priority);
+        priorityQueue.Enqueue(orange.Value, orange.Priority);
+
+        PriorityItem[] expectedResults = { banana, apple, orange };
+
+        for (int i = 0; i < expectedResults.Count(); i++)
+        {
+            var value = priorityQueue.Dequeue();
+            Assert.AreEqual(expectedResults[i].Value, value);
+        }
     }
 
     // Add more test cases as needed below.
