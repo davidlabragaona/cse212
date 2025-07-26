@@ -8,7 +8,9 @@ public class PriorityQueueTests
     [TestMethod]
     // Scenario: Test the priority queue with 4 words, 2 containing the same priority
     // Expected Result: Good Bye, Hello, Number, Eyes.
-    // Defect(s) Found: No defects found.
+    // Defect(s) Found:
+    //  When running this test, I detected an issue with the PriorityQueue. The same was not
+    //  removing the values returned.
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
@@ -34,7 +36,9 @@ public class PriorityQueueTests
     [TestMethod]
     // Scenario: Create 3 fruits with priorities (2 of them with the same), enqueue and dequeue them
     // Expected Result: banana, apple, orange
-    // Defect(s) Found: No defects found.
+    // Defect(s) Found:
+    //  Because the previous test method helped me identify an issue with the queue, this test case
+    //  did not present issues.
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
