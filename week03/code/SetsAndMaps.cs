@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 
 public static class SetsAndMaps
@@ -22,7 +23,21 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var set1 = new HashSet<string>(words);
+        var result = new HashSet<string>();
+        string reverse = string.Empty;
+        foreach (var word in words)
+        {
+            if (word[0] == word[1])
+                continue;
+            reverse = $"{word[1]}{word[0]}";
+            if (set1.Contains(reverse))
+            {
+                if (!result.Contains($"{word} & {reverse}") && !result.Contains($"{reverse} & {word}"))
+                    result.Add($"{word} & {reverse}");
+            }
+        }
+        return result.ToArray();
     }
 
     /// <summary>
@@ -43,8 +58,11 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            if (degrees.ContainsKey(fields[3]))
+                degrees[fields[3]]++;
+            else
+                degrees.Add(fields[3], 1);
         }
-
         return degrees;
     }
 
@@ -67,7 +85,33 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        word1 = word1.ToLower().Replace(" ", "");
+        word2 = word2.ToLower().Replace(" ", "");
+
+        var dictionary = new Dictionary<char, int>();
+
+        if (word1.Length != word2.Length)
+            return false;
+
+        for (var i = 0; i < word1.Length; i++)
+        {
+            if (dictionary.ContainsKey(word1[i]))
+                dictionary[word1[i]]++;
+            else
+                dictionary.Add(word1[i], 1);
+
+            if (dictionary.ContainsKey(word2[i]))
+                dictionary[word2[i]]++;
+            else
+                dictionary.Add(word2[i], 1);
+        }
+
+        foreach (var letter in dictionary)
+        {
+            if (letter.Value % 2 != 0)
+                return false;
+        }
+        return true;
     }
 
     /// <summary>
